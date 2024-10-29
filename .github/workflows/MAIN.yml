@@ -2,8 +2,7 @@ name: Generate Snake
 
 on:
   schedule:
-    # кожні 6 годин
-    - cron: "0 */6 * * *"
+    - cron: "0 */6 * * *" # кожні 6 годин
   workflow_dispatch:
 
 jobs:
@@ -12,7 +11,7 @@ jobs:
 
     steps:
       # Перевірка репозиторію
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       # Генерація змійки
       - uses: Platane/snk@master
@@ -24,6 +23,9 @@ jobs:
 
       # Перегляд статусу
       - run: git status
+
+      # Запис змін у файл середовища
+      - run: echo "snake_url=${{ steps.snake-gif.outputs.gif }}" >> $GITHUB_ENV
 
       # Відправка змін
       - name: Push changes
@@ -37,6 +39,5 @@ jobs:
         with:
           target_branch: output
           build_dir: dist
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 
