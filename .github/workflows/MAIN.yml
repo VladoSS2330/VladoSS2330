@@ -24,7 +24,7 @@ jobs:
       # Перегляд статусу
       - run: git status
 
-      # Запис змін у файл середовища
+      # Запис URL у файл середовища
       - run: echo "snake_url=${{ steps.snake-gif.outputs.gif }}" >> $GITHUB_ENV
 
       # Відправка змін
